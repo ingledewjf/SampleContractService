@@ -74,8 +74,11 @@ namespace ContractService.Tests
                         AllocType = AllocationType.PayOnProfile,
                         Deliverables = new List<Deliverable> 
                         {
-                            Id = 1,
-                            Value = 0m
+                            new Deliverable 
+                            {
+                                Id = 1,
+                                Value = 0m
+                            }
                         }
                     }
                 }
