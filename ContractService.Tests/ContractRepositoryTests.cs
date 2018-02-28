@@ -132,27 +132,98 @@ namespace ContractService.Tests
         [TestMethod]
         public void ContractRepository_GetTotalValue_ShouldGetTotalValueForASingleContract() 
         {
-            // implement this test!
-
             // arrange
+            var contract = GetContract();
+
+            var repository = new ContractRepository();
+            repository.Add(contract);
 
             // act
+            var actual = repository.GetMaximumValue(contract.ContractNumber);
 
             //assert
-            Assert.Fail();
+            Assert.AreEqual(170m, actual);
         }
 
         [TestMethod]
         public void ContractRepository_GetProfileValue_ShouldGetTotalProfileValueForASingleContract()
         {
-            // implement this test!
-
             // arrange
+            var contract = GetContract();
+
+            var repository = new ContractRepository();
+            repository.Add(contract);
 
             // act
+            var actual = repository.GetProfileValue(contract.ContractNumber);
 
             //assert
-            Assert.Fail();
+            Assert.AreEqual(100m, actual);
+        }
+
+        private static Contract GetContract() 
+        {
+            return new Contract 
+            {
+                ContractNumber = "ABC-123",
+                Allocations = new List<ContractAllocation> 
+                {
+                    new ContractAllocation
+                    {
+                        AllocationReference = "A1",
+                        AllocType = AllocationType.PayOnProfile,
+                        Deliverables = new List<Deliverable> 
+                        {
+                            new Deliverable 
+                            {
+                                Id = 1,
+                                Value = 54m
+                            },
+                            new Deliverable 
+                            {
+                                Id = 2,
+                                Value = 46m
+                            }
+                        }
+                    },
+                    new ContractAllocation 
+                    {
+                        AllocationReference = "A2",
+                        AllocType = AllocationType.PayOnActual,
+                        Deliverables = new List<Deliverable> 
+                        {
+                            new Deliverable 
+                            {
+                                Id = 3,
+                                Value = 15m
+                            },
+                            new Deliverable 
+                            {
+                                Id = 4,
+                                Value = 5m
+                            }
+                        }
+                    },
+                     new ContractAllocation 
+                    {
+                        AllocationReference = "A3",
+                        AllocType = AllocationType.DoNotPay,
+                        Deliverables = new List<Deliverable> 
+                        {
+                            new Deliverable 
+                            {
+                                Id = 5,
+                                Value = 22m
+                            },
+                            new Deliverable 
+                            {
+                                Id = 6,
+                                Value = 28m
+                            }
+                        }
+                    }
+                }
+            };
         }
     }
 }
