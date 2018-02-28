@@ -117,6 +117,19 @@ namespace ContractService.Tests
         }
 
         [TestMethod]
+        public void ContractRepository_Get_ShouldReturnNullIfNoContractFound() 
+        {
+            // arrange
+            var contractRepository = new ContractRepository();
+
+            // act
+            var actual = contractRepository.Get("ABCD-321");
+
+            // assert
+            Assert.IsNull(actual);
+        }
+
+        [TestMethod]
         public void ContractRepository_GetTotalValue_ShouldGetTotalValueForASingleContract() 
         {
             // implement this test!
@@ -126,7 +139,7 @@ namespace ContractService.Tests
             // act
 
             //assert
-            Assert.Fail()
+            Assert.Fail();
         }
 
         [TestMethod]
@@ -139,7 +152,7 @@ namespace ContractService.Tests
             // act
 
             //assert
-            Assert.Fail()
+            Assert.Fail();
         }
     }
 }
