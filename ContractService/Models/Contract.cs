@@ -5,6 +5,7 @@ namespace ContractService.Models
     public class Contract
     {
         public string ContractNumber {get; set;}
+        
         public List<ContractAllocation> Allocations {get;set;}
     }
 }
