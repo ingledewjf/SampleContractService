@@ -164,6 +164,56 @@ namespace ContractService.Tests
             Assert.AreEqual(100m, actual);
         }
 
+        [TestMethod]
+        public void ContractRepository_DeleteContract_ShouldRemoveContract() 
+        {
+            var contract = GetContract();
+
+            var repository = new ContractRepository();
+            repository.Add(contract);
+
+            Assert.IsNotNull(repository.Get(contract.ContractNumber));
+
+            repository.DeleteContract(contract.ContractNumber);
+
+            Assert.IsNull(repository.Get(contract.ContractNumber));
+        }        
+
+        [TestMethod]
+        public void ContractRepository_DeleteContractAllocation_ShouldRemoveAllocationFromContract() 
+        {
+            var contract = GetContract();
+
+            var repository = new ContractRepository();
+            repository.Add(contract);
+
+            string cn = contract.ContractNumber;
+            string allocRef = contract.Allocations.First().AllocationReference;
+
+            Assert.IsNotNull(repository.Get(contract.ContractNumber).Allocations.First());
+
+            repository.DeleteContractAllocation(contract.ContractNumber, contract.Allocations.First().AllocationReference);
+
+            Assert.IsNull(repository.Get(contract.ContractNumber).Allocations.SingleOrDefault(a => a.AllocationReference == allocRef));
+        }
+
+        public void ContractRepository_DeleteContractDeliverable_ShouldRemoveDeliverableFromContractAllocation() 
+        {
+            var contract = GetContract();
+            var repository = new ContractRepository();
+            repository.Add(contract);
+
+            string cn = contract.ContractNumber;
+            string allocRef = contract.Allocations.First().AllocationReference;
+            int delCode = contract.Allocations.First().Deliverables.First().Id;
+
+            Assert.IsNotNull(repository.Get(contract.ContractNumber).Allocations.First().Deliverables.First());
+
+            repository.DeleteContractDeliverable(cn, allocRef, delCode);
+
+            Assert.IsNull(repository.Get(cn).Allocations.Single(a => a.AllocationReference == allocRef).Deliverables.SingleOrDefault(d => d.Id == delCode));
+        }
+
         private static Contract GetContract() 
         {
             return new Contract 

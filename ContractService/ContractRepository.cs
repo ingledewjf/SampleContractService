@@ -19,6 +19,21 @@ namespace ContractService
             _contractCache.Add(contract);
         }
 
+        public void DeleteContract(string contractNumber) 
+        {
+
+        }
+
+        public void DeleteContractAllocation(string contractNumber, string allocationReference) 
+        {
+
+        }
+
+        public void DeleteContractDeliverable(string contractNumber, string allocationNumber, int deliverableCode) 
+        {
+
+        }
+
         public Contract Get(string contractNumber) 
         { 
             return _contractCache.SingleOrDefault(c => c.ContractNumber == contractNumber);
